@@ -17,17 +17,18 @@ public class TileController : MonoBehaviour
         rend = GetComponent<MeshRenderer>();
     }
 
-    public void OnSelect(TeamColor _color)
+    public void OnSelect(Material _material)
     {
-        switch (_color)
-        {
-            case TeamColor.GREEN:
-                rend.materials[changeMaterialAtPosition] = selectedMaterialGreen;
-                break;
-            case TeamColor.PURPLE:
-                rend.materials[changeMaterialAtPosition] = selectedMaterialPurple;
-                break;
-        }
+        rend.materials[changeMaterialAtPosition] = _material;
+        // switch (_color)
+        // {
+        //     case TeamColor.GREEN:
+        //         rend.materials[changeMaterialAtPosition] = selectedMaterialGreen;
+        //         break;
+        //     case TeamColor.PURPLE:
+        //         rend.materials[changeMaterialAtPosition] = selectedMaterialPurple;
+        //         break;
+        // }
     }
 
     public void OnReset()

@@ -47,6 +47,9 @@ MonoBehaviour:
   heroPrefab: {fileID: 320323695289701307, guid: 8982f84fa231c2441ae62d2a7584d4cf,
     type: 3}
   hero: {fileID: 0}
+  cursorSpeed: 200
+  wins: 0
+  gold: 0
 --- !u!114 &5387741588326134038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +228,6 @@ MonoBehaviour:
     m_ActionName: Fight/NearAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Fight
+  m_DefaultActionMap: Build
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

@@ -29,6 +29,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 2, z: 1}
   m_Center: {x: -6.82e-43, y: -0.5, z: 0.0009280741}
+--- !u!114 &960370896954691177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320323695289701307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd38d6a113a2984aa4d0afff2823b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockX: 1
+  blockY: 0
+  blockZ: 1
 --- !u!114 &2724361089812371581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,28 +57,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeMaterialAtPosition: 1
+  diePrefab: {fileID: 1121192042590650, guid: 4a73805a6efd28d478dbdf5a85cc2ffa, type: 3}
   distancePrefab: {fileID: 3324782601743631162, guid: 6bd8ffad966930e4c8a2127657b6d9ba,
     type: 3}
   distanceSpawnPosition: {fileID: 8154326139952984489}
-  distanceCooldown: 0.5
-  strongDistancePrefab: {fileID: 0}
-  strongDistanceSpawnPosition: {fileID: 0}
-  strongDistanceCooldown: 5
-  nearPrefab: {fileID: 0}
-  nearSpawnPosition: {fileID: 0}
+  distanceCooldown: 0.25
+  strongDistancePrefab: {fileID: 5533644075753355142, guid: a48726cccf1de944393425f4306ab66b,
+    type: 3}
+  strongDistanceSpawnPosition: {fileID: 8154326139952984489}
+  strongDistanceCooldown: 5.25
+  nearPrefab: {fileID: 1684114784098900501, guid: be78c63172c3f4547bc2fb8fc18a5283,
+    type: 3}
+  nearSpawnPosition: {fileID: 7247104024332071677}
   nearCooldown: 1.5
-  shieldPrefab: {fileID: 0}
-  shieldSpawnPosition: {fileID: 0}
-  shieldCooldown: 1.5
+  shieldPrefab: {fileID: 7202016991675837879, guid: 75421ed6ba3c03742ab88ea817e2c58a,
+    type: 3}
+  shieldSpawnPosition: {fileID: 7247104024332071677}
+  shieldCooldown: 5
+  healthPointsMax: 200
+  healthPoints: 200
   rotationThreshold: 0.1
   speed: 5
-  rotationSpeed: 200
-  distanceSpeed: 30
-  distancePower: 3
-  distanceAmount: 10
-  strongDistanceSpeed: 4
-  strongDistancePower: 3
-  strongDistanceAmount: 10
+  rotationSpeed: 600
+  distanceSpeed: 50
+  distancePower: 8
+  distanceAmount: 15
+  strongDistanceSpeed: 20
+  strongDistancePower: 25
+  strongDistanceAmount: 20
+  shieldTime: 2
+  shieldRadius: 2.5
+  nearAttackTime: 0.25
+  nearAttackStartRadius: 1
+  nearAttackEndRadius: 5
+  nearAttackPower: 5
+  activeDistanceCooldown: 0
+  activeStrongDistanceCooldown: 0
+  activeNearCooldown: 0
+  activeShieldCooldown: 0
 --- !u!1 &860188119233552052
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,11 +119,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860188119233552052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.8}
+  m_LocalPosition: {x: -0, y: 0, z: 0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1097141186945239297}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2219971067783966253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7247104024332071677}
+  m_Layer: 0
+  m_Name: ShieldSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7247104024332071677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219971067783966253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1097141186945239297}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &626965056964210410
 PrefabInstance:

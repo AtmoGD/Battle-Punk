@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class HeroController : MonoBehaviour
+public class HeroController : MonoBehaviour, Attackable
 {
     [Header("Materials")]
     [SerializeField] private int changeMaterialAtPosition = 1;
 
     [Header("Prefabs")]
+    [SerializeField] private GameObject diePrefab = null;
     [SerializeField] private GameObject distancePrefab = null;
     [SerializeField] private Transform distanceSpawnPosition = null;
-    [SerializeField] private float distanceCooldown = 0.5f;
+    [SerializeField] public float distanceCooldown = 0.5f;
     [SerializeField] private GameObject strongDistancePrefab = null;
     [SerializeField] private Transform strongDistanceSpawnPosition = null;
-    [SerializeField] private float strongDistanceCooldown = 5f;
+    [SerializeField] public float strongDistanceCooldown = 5f;
     [SerializeField] private GameObject nearPrefab = null;
     [SerializeField] private Transform nearSpawnPosition = null;
-    [SerializeField] private float nearCooldown = 1.5f;
+    [SerializeField] public float nearCooldown = 1.5f;
     [SerializeField] private GameObject shieldPrefab = null;
     [SerializeField] private Transform shieldSpawnPosition = null;
-    [SerializeField] private float shieldCooldown = 1.5f;
+    [SerializeField] public float shieldCooldown = 1.5f;
 
     [Header("Behavior")]
+    [SerializeField] public float healthPointsMax = 200f;
+    [SerializeField] public float healthPoints = 200f;
     [SerializeField] private float rotationThreshold = 0.1f;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotationSpeed = 2f;
@@ -32,23 +35,31 @@ public class HeroController : MonoBehaviour
     [SerializeField] private float strongDistanceSpeed = 4f;
     [SerializeField] private float strongDistancePower = 3f;
     [SerializeField] private float strongDistanceAmount = 10f;
+    [SerializeField] private float shieldTime = 2f;
+    [SerializeField] private float shieldRadius = 2f;
+    [SerializeField] private float nearAttackTime = 1f;
+    [SerializeField] private float nearAttackStartRadius = 1f;
+    [SerializeField] private float nearAttackEndRadius = 1f;
+    [SerializeField] private float nearAttackPower = 1f;
 
     public TeamColor color { get; private set; }
     public PlayerController player { get; private set; }
 
     public Vector2 Movement { get; set; }
     public Vector2 Rotation { get; set; }
-
+    // public bool Attack { get; private set; }
     private Rigidbody rb = null;
-    private float activeDistanceCooldown = 0f;
-    private float activeStrongDistanceCooldown = 0f;
-    private float activeNearCooldown = 0f;
-    private float activeShieldCooldown = 0f;
+    public float activeDistanceCooldown = 0f;
+    public float activeStrongDistanceCooldown = 0f;
+    public float activeNearCooldown = 0f;
+    public float activeShieldCooldown = 0f;
 
     public void Init(PlayerController _player, Vector3 _pos)
     {
         rb = GetComponent<Rigidbody>();
         player = _player;
+        healthPoints = healthPointsMax;
+        // Attack = false;
 
         MeshRenderer meshRen = GetComponent<MeshRenderer>();
         Material[] materials = meshRen.materials;
@@ -61,17 +72,73 @@ public class HeroController : MonoBehaviour
     {
         CheckCooldowns();
         Move();
+        // if(Attack)
+        //     DoDistanceAttack();
     }
 
-    public void DistanceAttack()
-    {
-        
+    // public void DistanceAttack()
+    // {
+    //     Attack = !Attack;
+    // }
+
+    public void DistanceAttack() {
         if (activeDistanceCooldown > 0f) return;
+
         InstantiateAttack(distancePrefab, distanceSpawnPosition);
         activeDistanceCooldown = distanceCooldown;
     }
 
-    private void InstantiateAttack(GameObject _prefab, Transform _position) {
+    public void StrongDistanceAttack()
+    {
+        if (activeStrongDistanceCooldown > 0f) return;
+
+        InstantiateAttack(strongDistancePrefab, strongDistanceSpawnPosition);
+        activeStrongDistanceCooldown = strongDistanceCooldown;
+    }
+
+    public void Shield()
+    {
+        if (activeShieldCooldown > 0f) return;
+
+        InstantiateAttack(shieldPrefab, shieldSpawnPosition);
+        activeShieldCooldown = shieldCooldown;
+    }
+
+    public void NearAttack()
+    {
+        if (activeNearCooldown > 0f) return;
+
+        InstantiateAttack(nearPrefab, nearSpawnPosition);
+        activeNearCooldown = nearCooldown;
+    }
+
+    public void TakeDamage(HeroController _hero, AttackType _type)
+    {
+        switch (_type)
+        {
+            case AttackType.DISTANCE:
+                healthPoints -= _hero.GetDistancePower();
+                break;
+            case AttackType.STRONGDISTANCE:
+                healthPoints -= _hero.GetStrongDistancePower();
+                break;
+            case AttackType.NEAR:
+                healthPoints -= _hero.GetNearAttackPower();
+                break;
+        }
+
+        if (healthPoints <= 0)
+            Die();
+    }
+
+    public void Die() {
+        GameObject heroDiedAnim = Instantiate(diePrefab, transform.position, transform.rotation);
+        player.Died();
+        Destroy(this.gameObject);
+    }
+
+    private void InstantiateAttack(GameObject _prefab, Transform _position)
+    {
         GameObject attack = Instantiate(_prefab, _position.position, _position.rotation);
         AttackController controller = attack.GetComponent<AttackController>();
         controller.Init(this);
@@ -118,7 +185,7 @@ public class HeroController : MonoBehaviour
         }
     }
 
-    private void SetPosition(Vector3 _pos)
+    public void SetPosition(Vector3 _pos)
     {
         float y = transform.position.y;
         transform.position = new Vector3(_pos.x, y, _pos.z);
@@ -138,4 +205,19 @@ public class HeroController : MonoBehaviour
     public void SetStrongDistancePower(float _value) { strongDistancePower = _value; }
     public float GetStrongDistanceAmount() { return strongDistanceAmount; }
     public void SetStrongDistanceAmount(float _value) { strongDistanceAmount = _value; }
+
+
+    public float GetShieldTime() { return shieldTime; }
+    public void SetShieldTime(float _value) { shieldTime = _value; }
+    public float GetShieldRadius() { return shieldRadius; }
+    public void SetShieldRadius(float _value) { shieldRadius = _value; }
+
+    public float GetNearAttackTime() { return nearAttackTime; }
+    public void SetNearAttackTime(float _value) { nearAttackTime = _value; }
+    public float GetNearAttackStartRadius() { return nearAttackStartRadius; }
+    public void SetNearAttackStartRadius(float _value) { nearAttackStartRadius = _value; }
+    public float GetNearAttackEndRadius() { return nearAttackEndRadius; }
+    public void SetNearAttackEndRadius(float _value) { nearAttackEndRadius = _value; }
+    public float GetNearAttackPower() { return nearAttackPower; }
+    public void SetNearAttackPower(float _value) { nearAttackPower = _value; }
 }

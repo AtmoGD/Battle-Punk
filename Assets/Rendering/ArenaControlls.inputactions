@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "MoveCursor",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "4fe2de5b-bccd-44e6-81ec-76bc1f92285d",
                     "expectedControlType": "Vector2",
                     "processors": "",

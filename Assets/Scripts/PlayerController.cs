@@ -6,17 +6,33 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject heroPrefab = null;
-    [SerializeField] private HeroController hero = null;
+    [SerializeField] public HeroController hero = null;
+    [SerializeField] public float cursorSpeed = 5f;
+    [SerializeField] public int wins = 0;
+    [SerializeField] public int gold = 0;
     public Material accentMaterial { get; private set; }
     public TeamColor color { get; private set; }
     public ArenaController arena { get; private set; }
+    public RectTransform cursor { get; private set; }
+    public TileController selectedTile = null;
 
-    public void Init(TeamColor _color, ArenaController _arena, Material _material)
+    public void Init(TeamColor _color, ArenaController _arena, Material _material, RectTransform _cursor)
     {
         color = _color;
         arena = _arena;
         accentMaterial = _material;
+        cursor = _cursor;
+        ResetHero();
+    }
 
+    public void Died()
+    {
+        arena.HeroDied(this);
+    }
+
+    public void ResetHero()
+    {
+        hero = null;
         GameObject newHero = Instantiate(heroPrefab, this.transform);
         hero = newHero.GetComponent<HeroController>();
         hero.Init(this, arena.GetRandomSpawnPosition());
@@ -36,28 +52,55 @@ public class PlayerController : MonoBehaviour
 
     public void OnDistanceAttack(InputAction.CallbackContext _context)
     {
-        if(hero)
+        if (hero)
             hero.DistanceAttack();
     }
 
     public void OnStrongDistanceAttack(InputAction.CallbackContext _context)
     {
-        Debug.Log("OnStrongDistanceAttack");
+        if (hero)
+            hero.StrongDistanceAttack();
     }
 
     public void OnShield(InputAction.CallbackContext _context)
     {
-        Debug.Log("OnShield");
+        if (hero)
+            hero.Shield();
     }
 
     public void OnNearAttack(InputAction.CallbackContext _context)
     {
-        Debug.Log("OnNearAttack");
+        if (hero)
+            hero.NearAttack();
     }
 
     public void OnMoveCursor(InputAction.CallbackContext _context)
     {
-        Debug.Log("OnMoveCursor");
+        if (!cursor) return;
+
+        Vector2 move = _context.ReadValue<Vector2>() * Time.deltaTime * cursorSpeed;
+        Vector3 actualPos = cursor.localPosition;
+        actualPos += new Vector3(move.x, move.y, 0);
+        actualPos.x = Mathf.Clamp(actualPos.x, -(arena.canvas.rect.width / 2), (arena.canvas.rect.width / 2));
+        actualPos.y = Mathf.Clamp(actualPos.y, -(arena.canvas.rect.height / 2), (arena.canvas.rect.height / 2));
+        cursor.localPosition = actualPos;
+        CheckCursorPosition();
+    }
+
+    public void CheckCursorPosition() {
+        Ray ray = Camera.main.ScreenPointToRay(cursor.position);
+        if(Physics.Raycast(ray, out RaycastHit hit)) {
+            if(hit.collider.CompareTag("GroundTile")) {
+                if(selectedTile) {
+                    selectedTile.OnReset();
+                    selectedTile = null;
+                }
+                Debug.Log("FoundTile");
+                TileController controller = hit.collider.GetComponent<TileController>();
+                selectedTile = controller;
+                selectedTile.OnSelect(accentMaterial);
+            }
+        }
     }
 
     public void OnChangeSelectionLeft(InputAction.CallbackContext _context)
