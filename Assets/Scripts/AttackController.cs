@@ -11,7 +11,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected AttackType type = AttackType.DISTANCE;
 
     protected Rigidbody rb = null;
-    protected HeroController hero = null;
+    public HeroController hero = null;
 
     public virtual void Init(HeroController _sender)
     {
@@ -22,7 +22,7 @@ public class AttackController : MonoBehaviour
         mat[changeMaterialAtPosition] = hero.player.accentMaterial;
         rend.materials = mat;
     }
-    protected void Kill()
+    public void Kill()
     {
         Destroy(this.gameObject);
     }
@@ -40,11 +40,11 @@ public class AttackController : MonoBehaviour
                 isAttackable.TakeDamage(hero, type);
         }
 
-        if (controller != null)
-        {
-            if (controller.hero == hero)
-                return;
-        }
+        // if (controller != null)
+        // {
+        //     if (controller.hero == hero)
+        //         return;
+        // }
 
         Kill();
     }
