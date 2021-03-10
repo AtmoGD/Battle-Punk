@@ -5,11 +5,10 @@ using UnityEngine;
 public class TileController : MonoBehaviour
 {
     [SerializeField] private Material standardMaterial = null;
-    [SerializeField] private Material selectedMaterialGreen = null;
-    [SerializeField] private Material selectedMaterialPurple = null;
-    [SerializeField] private Material blockedMaterial = null;
     [SerializeField] private int changeMaterialAtPosition = 1;
-
+    private TowerController tower = null;
+    public bool blocked = false;
+    public bool towerPlaced = false;
     MeshRenderer rend = null;
 
     public void Awake()
@@ -19,25 +18,31 @@ public class TileController : MonoBehaviour
 
     public void OnSelect(Material _material)
     {
-        rend.materials[changeMaterialAtPosition] = _material;
-        // switch (_color)
-        // {
-        //     case TeamColor.GREEN:
-        //         rend.materials[changeMaterialAtPosition] = selectedMaterialGreen;
-        //         break;
-        //     case TeamColor.PURPLE:
-        //         rend.materials[changeMaterialAtPosition] = selectedMaterialPurple;
-        //         break;
-        // }
+        ChangeMaterial(_material);
+        blocked = true;
     }
 
     public void OnReset()
     {
-        rend.materials[changeMaterialAtPosition] = standardMaterial;
+        ChangeMaterial(standardMaterial);
+        blocked = false;
     }
 
-    public void OnBlock()
-    {
-        rend.materials[changeMaterialAtPosition] = blockedMaterial;
+    public void PlaceTower(GameObject _tower) {
+        tower = _tower.GetComponent<TowerController>();
+        tower.OnDie += ResetTower;
+        towerPlaced = true;
+    }
+
+    public void ResetTower() {
+        tower.OnDie -= ResetTower;
+        blocked = false;
+        towerPlaced = false;
+    }
+
+    void ChangeMaterial(Material _material) {
+        Material[] mats = rend.materials;
+        mats[changeMaterialAtPosition] = _material;
+        rend.materials = mats;
     }
 }

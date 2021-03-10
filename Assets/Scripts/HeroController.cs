@@ -81,7 +81,8 @@ public class HeroController : MonoBehaviour, Attackable
     //     Attack = !Attack;
     // }
 
-    public void DistanceAttack() {
+    public void DistanceAttack()
+    {
         if (activeDistanceCooldown > 0f) return;
 
         InstantiateAttack(distancePrefab, distanceSpawnPosition);
@@ -112,26 +113,15 @@ public class HeroController : MonoBehaviour, Attackable
         activeNearCooldown = nearCooldown;
     }
 
-    public void TakeDamage(HeroController _hero, AttackType _type)
+    public void TakeDamage(HeroController _hero, float _amount, AttackType _type)
     {
-        switch (_type)
-        {
-            case AttackType.DISTANCE:
-                healthPoints -= _hero.GetDistancePower();
-                break;
-            case AttackType.STRONGDISTANCE:
-                healthPoints -= _hero.GetStrongDistancePower();
-                break;
-            case AttackType.NEAR:
-                healthPoints -= _hero.GetNearAttackPower();
-                break;
-        }
-
+        healthPoints -= _amount;
         if (healthPoints <= 0)
             Die();
     }
 
-    public void Die() {
+    public void Die()
+    {
         GameObject heroDiedAnim = Instantiate(diePrefab, transform.position, transform.rotation);
         player.Died();
         Destroy(this.gameObject);
@@ -191,6 +181,7 @@ public class HeroController : MonoBehaviour, Attackable
         transform.position = new Vector3(_pos.x, y, _pos.z);
     }
 
+    public HeroController GetHeroController() { return this; }
     public float GetDistanceSpeed() { return distanceSpeed; }
     public void SetDistanceSpeed(float _value) { distanceSpeed = _value; }
     public float GetDistancePower() { return distancePower; }

@@ -79,7 +79,7 @@ MonoBehaviour:
   rotationThreshold: 0.1
   speed: 5
   rotationSpeed: 600
-  distanceSpeed: 50
+  distanceSpeed: 35
   distancePower: 8
   distanceAmount: 15
   strongDistanceSpeed: 20

@@ -72,10 +72,7 @@ public class ArenaController : MonoBehaviour
         activeRound = RoundType.FIGHT;
         activeTimer = fightTime;
         foreach(PlayerController player in players) {
-            PlayerInput input = player.GetComponent<PlayerInput>();
-            input.currentActionMap = input.actions.FindActionMap("Fight");
-            player.hero.gameObject.SetActive(true);
-            player.hero.SetPosition(GetRandomSpawnPosition());
+            player.ChangeGameMode(RoundType.FIGHT);
         }
     }
 
@@ -84,9 +81,7 @@ public class ArenaController : MonoBehaviour
         activeRound = RoundType.BUILD;
         activeTimer = buildTime;
         foreach(PlayerController player in players) {
-            PlayerInput input = player.GetComponent<PlayerInput>();
-            input.currentActionMap = input.actions.FindActionMap("Build");
-            player.hero.gameObject.SetActive(false);
+            player.ChangeGameMode(RoundType.BUILD);
         }
     }
 

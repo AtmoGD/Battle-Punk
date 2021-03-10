@@ -8,7 +8,6 @@ public class ProjectileController : AttackController
 {
     private float speed = 5f;
     private float distance = 10f;
-
     public override void Init(HeroController _sender)
     {
         base.Init(_sender);
@@ -18,12 +17,21 @@ public class ProjectileController : AttackController
             case AttackType.DISTANCE:
                 speed = hero.GetDistanceSpeed();
                 distance = hero.GetDistanceAmount();
+                power = hero.GetDistancePower();
                 break;
             case AttackType.STRONGDISTANCE:
                 speed = hero.GetStrongDistanceSpeed();
                 distance = hero.GetStrongDistanceAmount();
+                power = hero.GetStrongDistancePower();
                 break;
         }
+    }
+
+    public void Init(HeroController _sender, float _speed, float _distance, float _power) {
+        base.Init(_sender);
+        speed = _speed;
+        distance = _distance;
+        power = _power;
     }
 
     private void FixedUpdate()

@@ -7,10 +7,10 @@ public class NearAttackController : AttackController
     private float time = 1f;
     private Vector3 startRadius = Vector3.zero;
     private Vector3 endRadius = Vector3.zero;
-
     public override void Init(HeroController _sender)
     {
         hero = _sender;
+        power = hero.GetNearAttackPower();
         time = hero.GetNearAttackTime();
         startRadius = Vector3.one * hero.GetNearAttackStartRadius();
         endRadius = Vector3.one * hero.GetNearAttackEndRadius();
@@ -30,15 +30,15 @@ public class NearAttackController : AttackController
         }
     }
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        Attackable isAttackable = other.GetComponent<Attackable>();
-        if (isAttackable != null)
-        {
-            if (other.gameObject == hero.gameObject)
-                return;
-            else
-                isAttackable.TakeDamage(hero, type);
-        }
-    }
+    // protected override void OnTriggerEnter(Collider other)
+    // {
+    //     // Attackable isAttackable = other.GetComponent<Attackable>();
+    //     // if (isAttackable != null)
+    //     // {
+    //     //     if (other.gameObject == hero.gameObject)
+    //     //         return;
+    //     //     else
+    //     //         isAttackable.TakeDamage(hero, power, type);
+    //     // }
+    // }
 }

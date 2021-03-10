@@ -24,15 +24,6 @@ public class ShieldController : AttackController
             Kill();
     }
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        AttackController controller = other.GetComponent<AttackController>();
-        if(controller) {
-            if(controller.hero == hero) {
-                return;
-            } else {
-                controller.Kill();
-            }
-        }
+    public override void TakeDamage(HeroController _hero, float _amount, AttackType _type) {
     }
 }

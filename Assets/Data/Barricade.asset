@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24ee1aaedaa58164dbda3ff8b6008b14, type: 3}
-  m_Name: TurretTower
+  m_Name: Barricade
   m_EditorClassIdentifier: 
-  name: Turret
-  prefab: {fileID: 2539856370037399808, guid: c1eda47f389900f4885246c370c8c179, type: 3}
-  costs: 50
+  name: Barricade
+  prefab: {fileID: 7548245941986043620, guid: aed67dd2c3c233b49a5c4bf6ecefc94e, type: 3}
+  costs: 20

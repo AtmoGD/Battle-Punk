@@ -49,7 +49,14 @@ MonoBehaviour:
   hero: {fileID: 0}
   cursorSpeed: 200
   wins: 0
-  gold: 0
+  gold: 200
+  towerData:
+  - {fileID: 11400000, guid: 2450186fd2ce86645828fbafdb8c5f8a, type: 2}
+  - {fileID: 11400000, guid: ff82ac8e7f7c4514a8429ebf07465056, type: 2}
+  selectedTile: {fileID: 0}
+  activeTowerData: {fileID: 0}
+  activeTower: {fileID: 0}
+  input: {fileID: 0}
 --- !u!114 &5387741588326134038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +233,36 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ef1d5698-1de7-4b23-b55d-a56168d5ec58
     m_ActionName: Fight/NearAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3755602173711412940}
+        m_MethodName: OnRotateSelectionLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 435da0fa-2143-4928-91c7-513f04374d57
+    m_ActionName: Build/RotateSelectedLeft[/SwitchProControllerHID/leftShoulder,/SwitchProControllerHID/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3755602173711412940}
+        m_MethodName: OnRotateSelectionRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: be2abf01-8e67-4edc-a528-89edff364313
+    m_ActionName: Build/RotateSelectedRight[/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Build

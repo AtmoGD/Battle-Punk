@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class AttackController : MonoBehaviour
+public class AttackController : MonoBehaviour, Attackable
 {
     [Header("Materials")]
     [SerializeField] protected int changeMaterialAtPosition = 1;
@@ -13,6 +13,7 @@ public class AttackController : MonoBehaviour
     protected Rigidbody rb = null;
     public HeroController hero = null;
 
+    protected float power = 0f;
     public virtual void Init(HeroController _sender)
     {
         rb = GetComponent<Rigidbody>();
@@ -22,30 +23,25 @@ public class AttackController : MonoBehaviour
         mat[changeMaterialAtPosition] = hero.player.accentMaterial;
         rend.materials = mat;
     }
-    public void Kill()
+    public virtual void Kill()
     {
         Destroy(this.gameObject);
+    }
+
+    public HeroController GetHeroController() { return hero;}
+    public virtual void TakeDamage(HeroController _hero, float _amount, AttackType _type) {
+       Kill();
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
         Attackable isAttackable = other.GetComponent<Attackable>();
-        AttackController controller = other.GetComponent<AttackController>();
-        HeroController heroController = other.GetComponent<HeroController>();
 
         if (isAttackable != null)
         {
-            if (other.gameObject == hero.gameObject)
-                return;
-            else
-                isAttackable.TakeDamage(hero, type);
+            if (isAttackable.GetHeroController() != hero) {
+                isAttackable.TakeDamage(hero, power, type);
+                Kill();
+            }
         }
-
-        // if (controller != null)
-        // {
-        //     if (controller.hero == hero)
-        //         return;
-        // }
-
-        Kill();
     }
 }

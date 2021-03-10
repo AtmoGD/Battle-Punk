@@ -16,6 +16,11 @@ public class PlayerBuildUIController : MonoBehaviour
 
         buildUI.SetActive(player.arena.activeRound == RoundType.BUILD);
         cursor.SetActive(player.arena.activeRound == RoundType.BUILD);
+
+        if(!player.activeTowerData) return;
+        
+        activeTowerText.text = player.activeTowerData.name;
+        activeTowerCosts.text = player.activeTowerData.costs.ToString("F0");
     }
 
     public void TakePlayer(PlayerController _player) { player = _player; }
