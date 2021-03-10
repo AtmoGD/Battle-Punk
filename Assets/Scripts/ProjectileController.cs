@@ -44,4 +44,5 @@ public class ProjectileController : AttackController
         if (distance <= 0f)
             Kill();
     }
+    
 }

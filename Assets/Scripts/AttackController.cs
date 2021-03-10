@@ -9,6 +9,7 @@ public class AttackController : MonoBehaviour, Attackable
     [SerializeField] protected int changeMaterialAtPosition = 1;
     [SerializeField] protected GameObject changeMaterialAtObject = null;
     [SerializeField] protected AttackType type = AttackType.DISTANCE;
+    [SerializeField] protected GameObject diePrefab = null;
 
     protected Rigidbody rb = null;
     public HeroController hero = null;
@@ -25,12 +26,17 @@ public class AttackController : MonoBehaviour, Attackable
     }
     public virtual void Kill()
     {
+        if (diePrefab)
+        {
+            Instantiate(diePrefab, transform.position, Quaternion.identity);
+        }
         Destroy(this.gameObject);
     }
 
-    public HeroController GetHeroController() { return hero;}
-    public virtual void TakeDamage(HeroController _hero, float _amount, AttackType _type) {
-       Kill();
+    public HeroController GetHeroController() { return hero; }
+    public virtual void TakeDamage(HeroController _hero, float _amount, AttackType _type)
+    {
+        Kill();
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -38,10 +44,15 @@ public class AttackController : MonoBehaviour, Attackable
 
         if (isAttackable != null)
         {
-            if (isAttackable.GetHeroController() != hero) {
+            if (isAttackable.GetHeroController() != hero)
+            {
                 isAttackable.TakeDamage(hero, power, type);
                 Kill();
             }
+        }
+        else if (other.CompareTag("Wall"))
+        {
+            Kill();
         }
     }
 }

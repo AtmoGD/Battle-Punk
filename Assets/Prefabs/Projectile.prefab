@@ -48,6 +48,9 @@ MonoBehaviour:
   changeMaterialAtPosition: 0
   changeMaterialAtObject: {fileID: 3324782603111100862}
   type: 0
+  diePrefab: {fileID: 3607515489956629800, guid: 84920e09b8dd8df40a66947d5955c54f,
+    type: 3}
+  hero: {fileID: 0}
 --- !u!54 &4372474365240705143
 Rigidbody:
   m_ObjectHideFlags: 0
