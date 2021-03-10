@@ -53,8 +53,9 @@ MonoBehaviour:
   towerData:
   - {fileID: 11400000, guid: 2450186fd2ce86645828fbafdb8c5f8a, type: 2}
   - {fileID: 11400000, guid: ff82ac8e7f7c4514a8429ebf07465056, type: 2}
+  - {fileID: 11400000, guid: e53c7d14b6da7eb41af24c77ec8bd166, type: 2}
   selectedTile: {fileID: 0}
-  activeTowerData: {fileID: 0}
+  activeTowerData: {fileID: 11400000, guid: ff82ac8e7f7c4514a8429ebf07465056, type: 2}
   activeTower: {fileID: 0}
   input: {fileID: 0}
 --- !u!114 &5387741588326134038

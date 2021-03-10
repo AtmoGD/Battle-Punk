@@ -22,6 +22,8 @@ public class HeroController : MonoBehaviour, Attackable
     [SerializeField] private GameObject shieldPrefab = null;
     [SerializeField] private Transform shieldSpawnPosition = null;
     [SerializeField] public float shieldCooldown = 1.5f;
+    [SerializeField] private float dropRadius = 4f;
+    [SerializeField] private List<GameObject> drops = new List<GameObject>();
 
     [Header("Behavior")]
     [SerializeField] public float healthPointsMax = 200f;
@@ -29,6 +31,7 @@ public class HeroController : MonoBehaviour, Attackable
     [SerializeField] private float rotationThreshold = 0.1f;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float collectSpeed = 3f;
     [SerializeField] private float distanceSpeed = 4f;
     [SerializeField] private float distancePower = 3f;
     [SerializeField] private float distanceAmount = 10f;
@@ -47,7 +50,7 @@ public class HeroController : MonoBehaviour, Attackable
 
     public Vector2 Movement { get; set; }
     public Vector2 Rotation { get; set; }
-    // public bool Attack { get; private set; }
+    public bool Attack { get; private set; }
     private Rigidbody rb = null;
     public float activeDistanceCooldown = 0f;
     public float activeStrongDistanceCooldown = 0f;
@@ -59,7 +62,7 @@ public class HeroController : MonoBehaviour, Attackable
         rb = GetComponent<Rigidbody>();
         player = _player;
         healthPoints = healthPointsMax;
-        // Attack = false;
+        Attack = false;
 
         MeshRenderer meshRen = GetComponent<MeshRenderer>();
         Material[] materials = meshRen.materials;
@@ -72,16 +75,16 @@ public class HeroController : MonoBehaviour, Attackable
     {
         CheckCooldowns();
         Move();
-        // if(Attack)
-        //     DoDistanceAttack();
+        if (Attack)
+            DoDistanceAttack();
     }
 
-    // public void DistanceAttack()
-    // {
-    //     Attack = !Attack;
-    // }
+    public void DistanceAttack(bool _attack)
+    {
+        Attack = _attack;
+    }
 
-    public void DistanceAttack()
+    public void DoDistanceAttack()
     {
         if (activeDistanceCooldown > 0f) return;
 
@@ -123,8 +126,20 @@ public class HeroController : MonoBehaviour, Attackable
     public void Die()
     {
         GameObject heroDiedAnim = Instantiate(diePrefab, transform.position, transform.rotation);
+        Drop();
         player.Died();
         Destroy(this.gameObject);
+    }
+    private void Drop()
+    {
+        foreach (GameObject drop in drops)
+        {
+            Vector3 pos = transform.position;
+            pos.x += UnityEngine.Random.Range(-dropRadius, dropRadius);
+            pos.z += UnityEngine.Random.Range(-dropRadius, dropRadius);
+            Collectable collectable = Instantiate(drop, pos, Quaternion.identity).GetComponent<Collectable>();
+            collectable.TakeTarget(player.arena.GetEnemy(player));
+        }
     }
 
     private void InstantiateAttack(GameObject _prefab, Transform _position)
@@ -174,6 +189,26 @@ public class HeroController : MonoBehaviour, Attackable
             activeShieldCooldown -= Time.deltaTime;
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Collectable collectable = other.GetComponent<Collectable>();
+        if (collectable != null)
+        {
+            if (collectable.GetTarget() == null)
+                collectable.TakeTarget(player);
+        }
+    }
+
+    // private void OnCollisionEnter(Collision other)
+    // {
+    //     Collectable collectable = other.gameObject.GetComponent<Collectable>();
+    //     if (collectable != null)
+    //     {
+    //         if (collectable.GetTarget() == null)
+    //             collectable.Collect(player);
+    //     }
+    // }
 
     public void SetPosition(Vector3 _pos)
     {

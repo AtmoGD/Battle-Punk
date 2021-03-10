@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     public void OnDistanceAttack(InputAction.CallbackContext _context)
     {
         if (hero)
-            hero.DistanceAttack();
+            hero.DistanceAttack(_context.started);
     }
 
     public void OnStrongDistanceAttack(InputAction.CallbackContext _context)
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         if (hero)
             hero.NearAttack();
     }
-
+    
     public void OnMoveCursor(InputAction.CallbackContext _context)
     {
         if (!cursor) return;
@@ -178,6 +178,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeSelectionLeft(InputAction.CallbackContext _context)
     {
+        if(!_context.started) return;
         int index = towerData.IndexOf(activeTowerData);
         index--;
         if (index < 0)
@@ -202,9 +203,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeSelectionRight(InputAction.CallbackContext _context)
     {
+        if(!_context.started) return;
         int index = towerData.IndexOf(activeTowerData);
         index++;
-        if (index >= towerData.Count - 1)
+        if (index > towerData.Count - 1)
             index = 0;
         activeTowerData = towerData[index];
         PlaceTower();

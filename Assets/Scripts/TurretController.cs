@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretController : TowerController, Attackable
+public class TurretController : TowerController
 {
     [SerializeField] private GameObject lookAtObject = null;
     [SerializeField] private GameObject laserPrefab = null;
@@ -20,6 +20,11 @@ public class TurretController : TowerController, Attackable
         if (target)
             LookAtTarget();
         cooldown -= Time.deltaTime;
+
+        if(player.arena.activeRound == RoundType.BUILD) {
+            target = null;
+        }
+        
         if (cooldown <= 0f)
             Attack();
     }
@@ -41,7 +46,6 @@ public class TurretController : TowerController, Attackable
         lookAtObject.transform.LookAt(lookAtPos);
     }
 
-    public HeroController GetHeroController() { return player.hero; }
     private void OnTriggerExit(Collider other)
     {
         if (other.transform == target)

@@ -71,7 +71,8 @@ public class ArenaController : MonoBehaviour
     {
         activeRound = RoundType.FIGHT;
         activeTimer = fightTime;
-        foreach(PlayerController player in players) {
+        foreach (PlayerController player in players)
+        {
             player.ChangeGameMode(RoundType.FIGHT);
         }
     }
@@ -80,7 +81,8 @@ public class ArenaController : MonoBehaviour
     {
         activeRound = RoundType.BUILD;
         activeTimer = buildTime;
-        foreach(PlayerController player in players) {
+        foreach (PlayerController player in players)
+        {
             player.ChangeGameMode(RoundType.BUILD);
         }
     }
@@ -88,17 +90,29 @@ public class ArenaController : MonoBehaviour
     public Vector3 GetRandomSpawnPosition()
     {
         int rndTile = Random.Range(0, tiles.Count);
-        Transform tile = tiles[rndTile].transform;
+        TileController tile = tiles[rndTile];
 
-        RaycastHit[] hitList = Physics.SphereCastAll(tile.position, spawnPositionCheckRadius, tile.up);
-        foreach (RaycastHit hit in hitList)
-        {
-            if (hit.collider.CompareTag("Hero") || hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Tower"))
-            {
-                return GetRandomSpawnPosition();
-            }
+        if (tile.blocked || tile.towerPlaced)
+            return GetRandomSpawnPosition();
+        else
+
+            // RaycastHit[] hitList = Physics.SphereCastAll(tile.position, spawnPositionCheckRadius, tile.up);
+            // foreach (RaycastHit hit in hitList)
+            // {
+            //     if (hit.collider.CompareTag("Hero") || hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Tower"))
+            //     {
+            //         return GetRandomSpawnPosition();
+            //     }
+            // }
+            return tile.transform.position;
+    }
+
+    public PlayerController GetEnemy(PlayerController _player) {
+        foreach(PlayerController player in players) {
+            if(player != _player)
+                return player;
         }
-        return tile.position;
+        return null;
     }
 
     public void HeroDied(PlayerController _player)

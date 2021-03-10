@@ -19,7 +19,7 @@
                     "id": "d08316ad-fa41-4ca1-8987-da26da38f9b9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "ChangeSelectionRight",
@@ -27,7 +27,7 @@
                     "id": "10943835-8c16-4471-8c00-a03583eb461a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Select",
@@ -70,7 +70,7 @@
                     "name": "",
                     "id": "48dda291-96ea-4f43-a9d7-061a8593a6cc",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
                     "action": "ChangeSelectionLeft",
@@ -81,7 +81,7 @@
                     "name": "",
                     "id": "a2c65c95-ed13-4487-a75d-e119025fe540",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
                     "action": "ChangeSelectionRight",
@@ -149,7 +149,7 @@
                     "id": "ebdb8b0f-9083-4847-9cfc-9e7ddc9facb4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold"
                 },
                 {
                     "name": "StrongDistanceAttack",
@@ -203,7 +203,7 @@
                     "name": "",
                     "id": "8e4fcfc4-1c05-42e6-bf6e-abed1a1dd9da",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "Controller",
                     "action": "DistanceAttack",

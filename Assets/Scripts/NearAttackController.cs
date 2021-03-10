@@ -29,16 +29,4 @@ public class NearAttackController : AttackController
             Kill();
         }
     }
-
-    // protected override void OnTriggerEnter(Collider other)
-    // {
-    //     // Attackable isAttackable = other.GetComponent<Attackable>();
-    //     // if (isAttackable != null)
-    //     // {
-    //     //     if (other.gameObject == hero.gameObject)
-    //     //         return;
-    //     //     else
-    //     //         isAttackable.TakeDamage(hero, power, type);
-    //     // }
-    // }
 }
