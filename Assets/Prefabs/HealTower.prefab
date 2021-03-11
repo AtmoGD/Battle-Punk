@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMaterialObject: {fileID: 7763804921813323671}
   changeMaterialAtPos: 0
-  healthMax: 200
+  healthMax: 250
   health: 200
   drops:
   - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}

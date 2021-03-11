@@ -9,6 +9,7 @@ TagManager:
   - Hero
   - Wall
   - Shield
+  - Blockable
   layers:
   - Default
   - TransparentFX

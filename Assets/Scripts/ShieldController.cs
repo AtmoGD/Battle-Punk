@@ -26,4 +26,8 @@ public class ShieldController : AttackController
 
     public override void TakeDamage(HeroController _hero, float _amount, AttackType _type) {
     }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+    }
 }

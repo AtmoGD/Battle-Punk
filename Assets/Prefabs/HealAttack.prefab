@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 0}
-  amountOfHeal: 5
+  amountOfHeal: 10
   startRadius: {x: 1, y: 1, z: 1}
   endRadius: {x: 10, y: 10, z: 10}
   time: 1

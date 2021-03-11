@@ -33,7 +33,7 @@ public class PlayerFightUIController : MonoBehaviour
         UpdateCooldowns();
     }
     public void Updatehealth() {
-        float life = player.hero.healthPoints / player.hero.healthPointsMax;
+        float life = player.goal.healthPoints / player.goal.healthPointsMax;
         healthSlider.value = life;
     }
 

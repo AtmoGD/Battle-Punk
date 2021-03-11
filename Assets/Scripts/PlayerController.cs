@@ -16,16 +16,20 @@ public class PlayerController : MonoBehaviour
     public Material accentMaterial { get; private set; }
     public TeamColor color { get; private set; }
     public ArenaController arena { get; private set; }
+    public GoalController goal { get; private set; }
     public RectTransform cursor { get; private set; }
+    public TileController startTile { get; private set;}
     public TileController selectedTile = null;
     public TowerData activeTowerData = null;
     public GameObject activeTower = null;
     public PlayerInput input = null;
 
-    public void Init(TeamColor _color, ArenaController _arena, Material _material, RectTransform _cursor)
+    public void Init(TeamColor _color, ArenaController _arena, Material _material, RectTransform _cursor, GoalController _goal, TileController _startTile)
     {
         input = GetComponent<PlayerInput>();
         color = _color;
+        startTile = _startTile;
+        goal = _goal;
         arena = _arena;
         accentMaterial = _material;
         cursor = _cursor;
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
                 input.currentActionMap = input.actions.FindActionMap("Fight");
                 hero.gameObject.SetActive(true);
-                hero.SetPosition(arena.GetRandomSpawnPosition());
+                hero.SetPosition(startTile.transform.position);
                 break;
         }
     }
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour
         hero = null;
         GameObject newHero = Instantiate(heroPrefab, this.transform);
         hero = newHero.GetComponent<HeroController>();
-        hero.Init(this, arena.GetRandomSpawnPosition());
+        hero.Init(this, startTile.transform.position);
     }
 
     public void OnMove(InputAction.CallbackContext _context)
@@ -130,7 +134,7 @@ public class PlayerController : MonoBehaviour
         if (hero)
             hero.NearAttack();
     }
-    
+
     public void OnMoveCursor(InputAction.CallbackContext _context)
     {
         if (!cursor) return;
@@ -146,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckCursorPosition()
     {
-        if(!arena.gameStarted) return;
+        if (!arena.gameStarted) return;
 
         Vector3 camPos = Camera.main.transform.position;
         Vector3 rayDir = cursor.position - camPos;
@@ -155,7 +159,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1 << LayerMask.NameToLayer("GroundTile")))
         {
             TileController newTile = hit.collider.GetComponent<TileController>();
-            if (newTile.blocked || newTile.towerPlaced) return;
+            if (newTile.blocked || newTile.towerPlaced || newTile.GetPlayer() != this) return;
 
             if (newTile != selectedTile)
             {
@@ -178,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeSelectionLeft(InputAction.CallbackContext _context)
     {
-        if(!_context.started) return;
+        if (!_context.started) return;
         int index = towerData.IndexOf(activeTowerData);
         index--;
         if (index < 0)
@@ -203,7 +207,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeSelectionRight(InputAction.CallbackContext _context)
     {
-        if(!_context.started) return;
+        if (!_context.started) return;
         int index = towerData.IndexOf(activeTowerData);
         index++;
         if (index > towerData.Count - 1)

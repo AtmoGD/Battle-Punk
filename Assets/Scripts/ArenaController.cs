@@ -7,6 +7,12 @@ public class ArenaController : MonoBehaviour
 {
     [SerializeField] private List<TileController> tiles = new List<TileController>();
     [SerializeField] private List<GameObject> walls = new List<GameObject>();
+    [SerializeField] private GoalController leftGoal = null;
+    [SerializeField] private List<TileController> leftField = new List<TileController>();
+    [SerializeField] private TileController leftStart = null;
+    [SerializeField] private GoalController rightGoal = null;
+    [SerializeField] private List<TileController> rightField = new List<TileController>();
+    [SerializeField] private TileController rightStart = null;
     [SerializeField] private List<PlayerController> players = new List<PlayerController>();
     [SerializeField] private List<PlayerFightUIController> uiController = new List<PlayerFightUIController>();
     [SerializeField] private List<PlayerBuildUIController> buildUIController = new List<PlayerBuildUIController>();
@@ -27,16 +33,31 @@ public class ArenaController : MonoBehaviour
         _player.transform.SetParent(this.transform);
         Material playerMaterial = materials[players.Count];
         PlayerController newPlayer = _player.GetComponent<PlayerController>();
-        newPlayer.Init((TeamColor)players.Count, this, playerMaterial, cursors[players.Count]);
+
+        if (players.Count == 0) {
+            newPlayer.Init((TeamColor)players.Count, this, playerMaterial, cursors[players.Count], leftGoal, leftStart);
+            foreach(TileController tile in leftField) {
+                tile.TakePlayer(newPlayer);
+            }
+            leftGoal.TakePlayer(newPlayer);
+        }else {
+            newPlayer.Init((TeamColor)players.Count, this, playerMaterial, cursors[players.Count], rightGoal, rightStart);
+            foreach(TileController tile in rightField) {
+                tile.TakePlayer(newPlayer);
+            }
+            
+            rightGoal.TakePlayer(newPlayer);
+        }
+
         uiController[players.Count].gameObject.SetActive(true);
         uiController[players.Count].TakeHero(newPlayer);
         buildUIController[players.Count].TakePlayer(newPlayer);
         players.Add(newPlayer);
 
-        if (players.Count == numPlayers)
+        if(players.Count == numPlayers)
             StartGame();
-        else
-            StartBuild();
+        // else
+        //     StartBuild();
     }
 
     private void Update()
@@ -95,15 +116,6 @@ public class ArenaController : MonoBehaviour
         if (tile.blocked || tile.towerPlaced)
             return GetRandomSpawnPosition();
         else
-
-            // RaycastHit[] hitList = Physics.SphereCastAll(tile.position, spawnPositionCheckRadius, tile.up);
-            // foreach (RaycastHit hit in hitList)
-            // {
-            //     if (hit.collider.CompareTag("Hero") || hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Tower"))
-            //     {
-            //         return GetRandomSpawnPosition();
-            //     }
-            // }
             return tile.transform.position;
     }
 

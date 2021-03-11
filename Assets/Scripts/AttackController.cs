@@ -47,10 +47,11 @@ public class AttackController : MonoBehaviour, Attackable
             if (isAttackable.GetHeroController() != hero)
             {
                 isAttackable.TakeDamage(hero, power, type);
-                Kill();
             }
+            if (hero.gameObject != other.gameObject)
+                Kill();
         }
-        else if (other.CompareTag("Wall"))
+        else if (other.CompareTag("Blockable"))
         {
             Kill();
         }
