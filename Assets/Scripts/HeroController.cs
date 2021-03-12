@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HeroController : MonoBehaviour, Attackable
 {
+    [SerializeField] protected string soundDie = "";
     [Header("Materials")]
     [SerializeField] private int changeMaterialAtPosition = 1;
 
@@ -128,6 +129,7 @@ public class HeroController : MonoBehaviour, Attackable
         GameObject heroDiedAnim = Instantiate(diePrefab, transform.position, transform.rotation);
         Drop();
         player.Died();
+        AudioManager.instance.Play(soundDie);
         Destroy(this.gameObject);
     }
     private void Drop()

@@ -8,6 +8,8 @@ public class AttackController : MonoBehaviour, Attackable
     [Header("Materials")]
     [SerializeField] protected int changeMaterialAtPosition = 1;
     [SerializeField] protected GameObject changeMaterialAtObject = null;
+    [SerializeField] protected string soundStart = "";
+    [SerializeField] protected string soundDie = "";
     [SerializeField] protected AttackType type = AttackType.DISTANCE;
     [SerializeField] protected GameObject diePrefab = null;
 
@@ -23,6 +25,7 @@ public class AttackController : MonoBehaviour, Attackable
         Material[] mat = rend.materials;
         mat[changeMaterialAtPosition] = hero.player.accentMaterial;
         rend.materials = mat;
+        AudioManager.instance.Play(soundStart);
     }
     public virtual void Kill()
     {
@@ -30,6 +33,7 @@ public class AttackController : MonoBehaviour, Attackable
         {
             Instantiate(diePrefab, transform.position, Quaternion.identity);
         }
+        AudioManager.instance.Play(soundDie);
         Destroy(this.gameObject);
     }
 
@@ -40,6 +44,9 @@ public class AttackController : MonoBehaviour, Attackable
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if(!hero)
+            Kill();
+
         Attackable isAttackable = other.GetComponent<Attackable>();
 
         if (isAttackable != null)
@@ -48,7 +55,8 @@ public class AttackController : MonoBehaviour, Attackable
             {
                 isAttackable.TakeDamage(hero, power, type);
             }
-            if (hero.gameObject != other.gameObject)
+
+            if (!hero ||hero.gameObject != other.gameObject)
                 Kill();
         }
         else if (other.CompareTag("Blockable"))

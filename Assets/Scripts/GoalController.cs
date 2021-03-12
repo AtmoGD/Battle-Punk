@@ -21,7 +21,7 @@ public class GoalController : MonoBehaviour, Attackable
     }
     private void Die()
     {
-        
+        arena.PlayerDied(player);
     }
     public void TakePlayer(PlayerController _hero)
     {

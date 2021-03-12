@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject heroPrefab = null;
     [SerializeField] public HeroController hero = null;
+    [SerializeField] public string placeTowerSound = "";
+    [SerializeField] public string cancelSound = "";
     [SerializeField] public float cursorSpeed = 5f;
+    [SerializeField] public float respawnSpeed = 3f;
     [SerializeField] public int wins = 0;
     [SerializeField] public int gold = 0;
     [SerializeField] public List<TowerData> towerData = new List<TowerData>();
@@ -18,11 +22,25 @@ public class PlayerController : MonoBehaviour
     public ArenaController arena { get; private set; }
     public GoalController goal { get; private set; }
     public RectTransform cursor { get; private set; }
-    public TileController startTile { get; private set;}
+    public TileController startTile { get; private set; }
     public TileController selectedTile = null;
     public TowerData activeTowerData = null;
     public GameObject activeTower = null;
     public PlayerInput input = null;
+    private bool shouldRespawn = false;
+    private float activeRespawnCooldown = 0f;
+
+    private void Update()
+    {
+        if (shouldRespawn)
+        {
+            activeRespawnCooldown -= Time.deltaTime;
+            if (activeRespawnCooldown <= 0f && arena.activeRound == RoundType.FIGHT)
+            {
+                ResetHero();
+            }
+        }
+    }
 
     public void Init(TeamColor _color, ArenaController _arena, Material _material, RectTransform _cursor, GoalController _goal, TileController _startTile)
     {
@@ -69,7 +87,8 @@ public class PlayerController : MonoBehaviour
                     activeTower.SetActive(true);
 
                 input.currentActionMap = input.actions.FindActionMap("Build");
-                hero.gameObject.SetActive(false);
+                if (hero)
+                    hero.gameObject.SetActive(false);
                 break;
 
             case RoundType.FIGHT:
@@ -80,15 +99,20 @@ public class PlayerController : MonoBehaviour
                     selectedTile.OnReset();
 
                 input.currentActionMap = input.actions.FindActionMap("Fight");
-                hero.gameObject.SetActive(true);
-                hero.SetPosition(startTile.transform.position);
+                if (hero)
+                {
+                    hero.gameObject.SetActive(true);
+                    hero.SetPosition(startTile.transform.position);
+                }
                 break;
         }
     }
 
     public void Died()
     {
-        arena.HeroDied(this);
+        shouldRespawn = true;
+        activeRespawnCooldown = respawnSpeed;
+        // arena.HeroDied(this);
     }
 
     public void ResetHero()
@@ -97,6 +121,7 @@ public class PlayerController : MonoBehaviour
         GameObject newHero = Instantiate(heroPrefab, this.transform);
         hero = newHero.GetComponent<HeroController>();
         hero.Init(this, startTile.transform.position);
+        shouldRespawn = false;
     }
 
     public void OnMove(InputAction.CallbackContext _context)
@@ -146,6 +171,12 @@ public class PlayerController : MonoBehaviour
         actualPos.y = Mathf.Clamp(actualPos.y, -(arena.canvas.rect.height / 2), (arena.canvas.rect.height / 2));
         cursor.localPosition = actualPos;
         CheckCursorPosition();
+    }
+
+    public void OnRestartGame(InputAction.CallbackContext _context)
+    {
+        if (_context.started)
+            SceneManager.LoadScene("Game");
     }
 
     public void CheckCursorPosition()
@@ -220,13 +251,17 @@ public class PlayerController : MonoBehaviour
     {
         if (!activeTower || !activeTowerData) return;
 
-        if (activeTowerData.costs > gold) return;
-
+        if (activeTowerData.costs > gold)
+        {
+            AudioManager.instance.Play(cancelSound);
+            return;
+        }
         if (selectedTile)
         {
             if (selectedTile.towerPlaced)
                 return;
 
+            AudioManager.instance.Play(placeTowerSound);
             gold -= activeTowerData.costs;
             selectedTile.PlaceTower(activeTower);
             activeTower = null;

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerFightUIController : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider = null;
-    [SerializeField] private List<GameObject> winPoints = new List<GameObject>();
     [SerializeField] private Text goldAmount = null;
     [SerializeField] private Image distanceImage = null;
     [SerializeField] private Image strongDistanceImage = null;
@@ -28,19 +27,12 @@ public class PlayerFightUIController : MonoBehaviour
         if(!player) return;
 
         Updatehealth();
-        UpdateWinPoints();
         UpdateGold();
         UpdateCooldowns();
     }
     public void Updatehealth() {
         float life = player.goal.healthPoints / player.goal.healthPointsMax;
         healthSlider.value = life;
-    }
-
-    public void UpdateWinPoints() {
-        for(int i = 0; i < winPoints.Count; i++) {
-            winPoints[i].SetActive(player.wins > i);
-        }
     }
 
     public void UpdateGold() {

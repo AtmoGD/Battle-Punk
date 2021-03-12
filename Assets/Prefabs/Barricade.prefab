@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeMaterialObject: {fileID: 8580663250956851561}
+  towerDieSound: DestroyTower
   changeMaterialAtPos: 1
   healthMax: 350
   health: 200

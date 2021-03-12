@@ -189,12 +189,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeMaterialObject: {fileID: 6013808859236000680}
+  towerDieSound: DestroyTower
   changeMaterialAtPos: 1
-  healthMax: 200
+  healthMax: 400
   health: 200
   drops:
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
   - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
   - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
   dropRadius: 2
@@ -205,7 +204,7 @@ MonoBehaviour:
   spawnPosition: {fileID: 4976186435846235651}
   attackSpeed: 20
   attackDistance: 10
-  attackPower: 5
+  attackPower: 15
   attackCooldown: 1
 --- !u!65 &538515750784673639
 BoxCollider:
@@ -450,11 +449,21 @@ PrefabInstance:
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c23b981725006cd49b69710b2047fe20,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a702ad7a7fd6f5f46942bca664f651b9, type: 2}
     - target: {fileID: 919132149155446097, guid: c23b981725006cd49b69710b2047fe20,
         type: 3}
       propertyPath: m_Name
       value: GunTower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6513367252644705556, guid: c23b981725006cd49b69710b2047fe20,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a702ad7a7fd6f5f46942bca664f651b9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c23b981725006cd49b69710b2047fe20, type: 3}
 --- !u!1 &6013808859236000680 stripped

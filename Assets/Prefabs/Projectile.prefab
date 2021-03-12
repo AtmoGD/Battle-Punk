@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMaterialAtPosition: 0
   changeMaterialAtObject: {fileID: 3324782603111100862}
+  soundStart: Laser
+  soundDie: LaserDie
   type: 0
   diePrefab: {fileID: 3607515489956629800, guid: 84920e09b8dd8df40a66947d5955c54f,
     type: 3}

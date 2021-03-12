@@ -7,6 +7,7 @@ public class TowerController : MonoBehaviour, Attackable
 {
     public Action OnDie;
     [SerializeField] private GameObject changeMaterialObject = null;
+    [SerializeField] private string towerDieSound = "";
     [SerializeField] private int changeMaterialAtPos = 1;
     [SerializeField] public float healthMax = 200f; 
     [SerializeField] public float health = 200f;
@@ -17,6 +18,7 @@ public class TowerController : MonoBehaviour, Attackable
     public void Die() {
         OnDie?.Invoke();
         Drop();
+        AudioManager.instance.Play(towerDieSound);
         Destroy(this.gameObject);
     }
     private void Drop() {

@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3c52f9b1e47124f8fc62b1289da445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundDie: HeroDie
   changeMaterialAtPosition: 1
   diePrefab: {fileID: 1121192042590650, guid: 4a73805a6efd28d478dbdf5a85cc2ffa, type: 3}
   distancePrefab: {fileID: 3324782601743631162, guid: 6bd8ffad966930e4c8a2127657b6d9ba,
@@ -103,6 +104,20 @@ MonoBehaviour:
   activeStrongDistanceCooldown: 0
   activeNearCooldown: 0
   activeShieldCooldown: 0
+--- !u!114 &1285368660939070123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846414081033748329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9923cf827b240643b59b9f6c1f1f8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 2724361089812371581}
+  slider: {fileID: 6502735541833999677}
 --- !u!1 &860188119233552052
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,20 +271,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1285368660939070123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 846414081033748329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9923cf827b240643b59b9f6c1f1f8e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hero: {fileID: 2724361089812371581}
-  slider: {fileID: 6502735541833999677}
 --- !u!1001 &626965056964210410
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System.Net.Mime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ArenaController : MonoBehaviour
 {
+    [SerializeField] private string playerJoinedSound = "";
+    [SerializeField] private string themeSound = "";
     [SerializeField] private List<TileController> tiles = new List<TileController>();
     [SerializeField] private List<GameObject> walls = new List<GameObject>();
     [SerializeField] private GoalController leftGoal = null;
@@ -18,6 +22,8 @@ public class ArenaController : MonoBehaviour
     [SerializeField] private List<PlayerBuildUIController> buildUIController = new List<PlayerBuildUIController>();
     [SerializeField] private List<RectTransform> cursors = new List<RectTransform>();
     [SerializeField] public RectTransform canvas = null;
+    [SerializeField] public GameObject gameOverScreen = null;
+    [SerializeField] public Text wonField = null;
     [SerializeField] private float spawnPositionCheckRadius = 2f;
     [SerializeField] private float fightTime = 100f;
     [SerializeField] private float buildTime = 25f;
@@ -28,8 +34,14 @@ public class ArenaController : MonoBehaviour
     public bool gameStarted = false;
     public RoundType activeRound = RoundType.BUILD;
     public float activeTimer = 0f;
+    private void Start()
+    {
+        AudioManager.instance.Play(themeSound);
+    }
+    
     public void OnPlayerJoined(PlayerInput _player)
     {
+        AudioManager.instance.Play(playerJoinedSound);
         _player.transform.SetParent(this.transform);
         Material playerMaterial = materials[players.Count];
         PlayerController newPlayer = _player.GetComponent<PlayerController>();
@@ -127,19 +139,22 @@ public class ArenaController : MonoBehaviour
         return null;
     }
 
-    public void HeroDied(PlayerController _player)
+    public void PlayerDied(PlayerController _player)
     {
-        foreach (PlayerController player in players)
-        {
-            if (player != _player)
-            {
-                player.wins++;
-            }
-            else
-            {
-                player.ResetHero();
-            }
-        }
+        wonField.text = _player == players[0] ? "Player 2 has won!" : "Player 1 has won!";
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
+        // foreach (PlayerController player in players)
+        // {
+        //     if (player != _player)
+        //     {
+        //         player.wins++;
+        //     }
+        //     else
+        //     {
+        //         player.ResetHero();
+        //     }
+        // }
     }
 }
 

@@ -77,7 +77,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMaterialAtPosition: 1
   changeMaterialAtObject: {fileID: 1575401131441599680}
+  soundStart: Rocket
+  soundDie: RocketDie
   type: 1
+  diePrefab: {fileID: 3607515489956629800, guid: 35aa2011662fd284e89ed43d83a7568a,
+    type: 3}
+  hero: {fileID: 0}
 --- !u!1001 &1809773232486484369
 PrefabInstance:
   m_ObjectHideFlags: 0
