@@ -19,7 +19,7 @@
                     "id": "d08316ad-fa41-4ca1-8987-da26da38f9b9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "ChangeSelectionRight",
@@ -27,7 +27,7 @@
                     "id": "10943835-8c16-4471-8c00-a03583eb461a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "Select",
@@ -59,7 +59,7 @@
                     "id": "e4ce3dda-63c9-484c-98dd-1edee5c3a576",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -78,7 +78,7 @@
                     "name": "",
                     "id": "48dda291-96ea-4f43-a9d7-061a8593a6cc",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "ChangeSelectionLeft",
@@ -89,7 +89,7 @@
                     "name": "",
                     "id": "a2c65c95-ed13-4487-a75d-e119025fe540",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "ChangeSelectionRight",
@@ -133,7 +133,7 @@
                     "name": "",
                     "id": "e09b6246-d3e5-45f4-8c00-d99f0e0dba23",
                     "path": "<Gamepad>/start",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "RestartGame",
@@ -168,7 +168,7 @@
                     "id": "ebdb8b0f-9083-4847-9cfc-9e7ddc9facb4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "StrongDistanceAttack",
@@ -200,7 +200,7 @@
                     "id": "e1cd7767-3138-4103-b7f9-183b26171ca4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -230,7 +230,7 @@
                     "name": "",
                     "id": "8e4fcfc4-1c05-42e6-bf6e-abed1a1dd9da",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "DistanceAttack",
@@ -274,7 +274,7 @@
                     "name": "",
                     "id": "55a6a55b-2469-4b83-900d-b6c9da8b5603",
                     "path": "<Gamepad>/start",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "RestartGame",

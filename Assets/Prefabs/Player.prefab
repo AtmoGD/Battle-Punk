@@ -52,7 +52,7 @@ MonoBehaviour:
   cursorSpeed: 200
   respawnSpeed: 3
   wins: 0
-  gold: 1000
+  gold: 250
   towerData:
   - {fileID: 11400000, guid: 2450186fd2ce86645828fbafdb8c5f8a, type: 2}
   - {fileID: 11400000, guid: ff82ac8e7f7c4514a8429ebf07465056, type: 2}

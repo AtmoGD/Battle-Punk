@@ -66,7 +66,7 @@ MonoBehaviour:
   strongDistancePrefab: {fileID: 5533644075753355142, guid: a48726cccf1de944393425f4306ab66b,
     type: 3}
   strongDistanceSpawnPosition: {fileID: 8154326139952984489}
-  strongDistanceCooldown: 5.25
+  strongDistanceCooldown: 10
   nearPrefab: {fileID: 1684114784098900501, guid: be78c63172c3f4547bc2fb8fc18a5283,
     type: 3}
   nearSpawnPosition: {fileID: 7247104024332071677}
@@ -77,12 +77,15 @@ MonoBehaviour:
   shieldCooldown: 5
   dropRadius: 4
   drops:
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  healthPointsMax: 200
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  healthPointsMax: 250
   healthPoints: 200
   rotationThreshold: 0.1
   speed: 5
@@ -96,10 +99,10 @@ MonoBehaviour:
   strongDistanceAmount: 20
   shieldTime: 3
   shieldRadius: 2.5
-  nearAttackTime: 0.45
+  nearAttackTime: 0.35
   nearAttackStartRadius: 1
   nearAttackEndRadius: 6
-  nearAttackPower: 20
+  nearAttackPower: 40
   activeDistanceCooldown: 0
   activeStrongDistanceCooldown: 0
   activeNearCooldown: 0

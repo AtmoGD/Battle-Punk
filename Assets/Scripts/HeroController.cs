@@ -51,7 +51,7 @@ public class HeroController : MonoBehaviour, Attackable
 
     public Vector2 Movement { get; set; }
     public Vector2 Rotation { get; set; }
-    public bool Attack { get; private set; }
+    // public bool Attack { get; private set; }
     private Rigidbody rb = null;
     public float activeDistanceCooldown = 0f;
     public float activeStrongDistanceCooldown = 0f;
@@ -63,7 +63,7 @@ public class HeroController : MonoBehaviour, Attackable
         rb = GetComponent<Rigidbody>();
         player = _player;
         healthPoints = healthPointsMax;
-        Attack = false;
+        // Attack = false;
 
         MeshRenderer meshRen = GetComponent<MeshRenderer>();
         Material[] materials = meshRen.materials;
@@ -76,13 +76,18 @@ public class HeroController : MonoBehaviour, Attackable
     {
         CheckCooldowns();
         Move();
-        if (Attack)
-            DoDistanceAttack();
+        // if (Attack)
+        //     DoDistanceAttack();
     }
 
-    public void DistanceAttack(bool _attack)
+    // public void DistanceAttack(bool _attack)
+    // {
+    //     Attack = _attack;
+    // }
+
+    public void DistanceAttack()
     {
-        Attack = _attack;
+        DoDistanceAttack();
     }
 
     public void DoDistanceAttack()

@@ -44,7 +44,7 @@ public class AttackController : MonoBehaviour, Attackable
     }
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if(!hero)
+        if (!hero)
             Kill();
 
         Attackable isAttackable = other.GetComponent<Attackable>();
@@ -55,9 +55,8 @@ public class AttackController : MonoBehaviour, Attackable
             {
                 isAttackable.TakeDamage(hero, power, type);
             }
-
-            if (!hero ||hero.gameObject != other.gameObject)
-                Kill();
+            if (isAttackable.GetHeroController() != hero)
+                    Kill();
         }
         else if (other.CompareTag("Blockable"))
         {

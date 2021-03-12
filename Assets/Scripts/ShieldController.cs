@@ -29,5 +29,6 @@ public class ShieldController : AttackController
 
     protected override void OnTriggerEnter(Collider other)
     {
+        
     }
 }

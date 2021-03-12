@@ -50,12 +50,10 @@ MonoBehaviour:
   changeMaterialObject: {fileID: 8580663250956851561}
   towerDieSound: DestroyTower
   changeMaterialAtPos: 1
-  healthMax: 350
-  health: 200
+  healthMax: 200
+  health: 150
   drops:
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
   dropRadius: 2
   player: {fileID: 0}
 --- !u!54 &6977836122198961782

@@ -38,7 +38,7 @@ public class ArenaController : MonoBehaviour
     {
         AudioManager.instance.Play(themeSound);
     }
-    
+
     public void OnPlayerJoined(PlayerInput _player)
     {
         AudioManager.instance.Play(playerJoinedSound);
@@ -46,18 +46,23 @@ public class ArenaController : MonoBehaviour
         Material playerMaterial = materials[players.Count];
         PlayerController newPlayer = _player.GetComponent<PlayerController>();
 
-        if (players.Count == 0) {
+        if (players.Count == 0)
+        {
             newPlayer.Init((TeamColor)players.Count, this, playerMaterial, cursors[players.Count], leftGoal, leftStart);
-            foreach(TileController tile in leftField) {
+            foreach (TileController tile in leftField)
+            {
                 tile.TakePlayer(newPlayer);
             }
             leftGoal.TakePlayer(newPlayer);
-        }else {
+        }
+        else
+        {
             newPlayer.Init((TeamColor)players.Count, this, playerMaterial, cursors[players.Count], rightGoal, rightStart);
-            foreach(TileController tile in rightField) {
+            foreach (TileController tile in rightField)
+            {
                 tile.TakePlayer(newPlayer);
             }
-            
+
             rightGoal.TakePlayer(newPlayer);
         }
 
@@ -66,7 +71,7 @@ public class ArenaController : MonoBehaviour
         buildUIController[players.Count].TakePlayer(newPlayer);
         players.Add(newPlayer);
 
-        if(players.Count == numPlayers)
+        if (players.Count == numPlayers)
             StartGame();
         // else
         //     StartBuild();
@@ -131,9 +136,11 @@ public class ArenaController : MonoBehaviour
             return tile.transform.position;
     }
 
-    public PlayerController GetEnemy(PlayerController _player) {
-        foreach(PlayerController player in players) {
-            if(player != _player)
+    public PlayerController GetEnemy(PlayerController _player)
+    {
+        foreach (PlayerController player in players)
+        {
+            if (player != _player)
                 return player;
         }
         return null;
@@ -141,20 +148,11 @@ public class ArenaController : MonoBehaviour
 
     public void PlayerDied(PlayerController _player)
     {
+        if (!gameStarted) return;
+
+        gameStarted = false;
         wonField.text = _player == players[0] ? "Player 2 has won!" : "Player 1 has won!";
         gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
-        // foreach (PlayerController player in players)
-        // {
-        //     if (player != _player)
-        //     {
-        //         player.wins++;
-        //     }
-        //     else
-        //     {
-        //         player.ResetHero();
-        //     }
-        // }
     }
 }
 

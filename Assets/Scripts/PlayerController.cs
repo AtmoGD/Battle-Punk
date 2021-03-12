@@ -138,8 +138,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnDistanceAttack(InputAction.CallbackContext _context)
     {
+        // if (hero)
+        //     hero.DistanceAttack(_context.started);
         if (hero)
-            hero.DistanceAttack(_context.started);
+            hero.DistanceAttack();
     }
 
     public void OnStrongDistanceAttack(InputAction.CallbackContext _context)
@@ -175,8 +177,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnRestartGame(InputAction.CallbackContext _context)
     {
-        if (_context.started)
-            SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");
+        // if (_context.started)
     }
 
     public void CheckCursorPosition()

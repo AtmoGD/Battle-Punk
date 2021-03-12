@@ -191,11 +191,15 @@ MonoBehaviour:
   changeMaterialObject: {fileID: 6013808859236000680}
   towerDieSound: DestroyTower
   changeMaterialAtPos: 1
-  healthMax: 400
+  healthMax: 300
   health: 200
   drops:
   - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
-  - {fileID: 6120980469530137045, guid: a0f335d03c0308242964d59db6e749bb, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
+  - {fileID: 6120980469530137045, guid: 86f23300d97bd3444ad5802e21a185d0, type: 3}
   dropRadius: 2
   player: {fileID: 0}
   lookAtObject: {fileID: 1062386430861884774}
@@ -204,7 +208,7 @@ MonoBehaviour:
   spawnPosition: {fileID: 4976186435846235651}
   attackSpeed: 20
   attackDistance: 10
-  attackPower: 15
+  attackPower: 20
   attackCooldown: 1
 --- !u!65 &538515750784673639
 BoxCollider:
